@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.persistence.OneToMany;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/stock")

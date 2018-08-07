@@ -18,7 +18,12 @@ public class BuyStockCOntroller {
 
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
-    public String buyStock(@RequestBody BuyStock buyStock){
+    public String buyStock(@RequestBody BuyStock buyStock) throws Exception {
+
+        if(buyStock == null){
+
+            throw new Exception("Supply details to buy stock!!");
+        }
 
         return this.buyStockService.buyStock(buyStock);
     }
