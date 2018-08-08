@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 @Service
 public class StockService {
@@ -48,6 +49,9 @@ public class StockService {
         }catch (FileNotFoundException fnfe){
 
            return new StockResponse("Stock not available, please input a valid symbol!!");
+        }catch (UnknownHostException une){
+
+            return new StockResponse("No internet connection!!");
         }
 
        return stockResponse;

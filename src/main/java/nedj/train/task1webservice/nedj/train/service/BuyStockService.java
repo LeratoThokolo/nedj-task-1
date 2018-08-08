@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 @Service
 public class BuyStockService {
@@ -76,6 +76,10 @@ public class BuyStockService {
        }catch (FileNotFoundException fnfe){
 
            response = "Unknown symbol, please supply a valid symbol!!";
+       }
+       catch (UnknownHostException uhe){
+
+           response = "No internet connection!!";
        }
 
 

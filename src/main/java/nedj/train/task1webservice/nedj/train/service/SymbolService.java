@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nedj.train.task1webservice.nedj.train.model.Stock;
+import nedj.train.task1webservice.nedj.train.model.StockResponse;
 import nedj.train.task1webservice.nedj.train.model.Symbol;
 import nedj.train.task1webservice.nedj.train.model.SymbolResponse;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class SymbolService {
 
         try {
 
-            URL url = new URL("https://api.iextrading.com/1.0/ref-data/symbolsssd");
+            URL url = new URL("https://api.iextrading.com/1.0/ref-data/symbols");
 
             List<Symbol> symbols = new ArrayList<>();
 
@@ -56,9 +58,14 @@ public class SymbolService {
 
             symbolResponse.setResponse("Json mapping has failed!!");
 
+        } catch (UnknownHostException une){
+
+
+           symbolResponse.setResponse("No internet connection!!");
         } catch (IOException ioe) {
 
            symbolResponse.setResponse("Url invalid, please correct the last part of the url!!");
+
         }
 
         return symbolResponse;

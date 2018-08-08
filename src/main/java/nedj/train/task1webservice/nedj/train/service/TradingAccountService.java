@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class TradingAccountService {
 
 
 
-    public BalanceResponse accountBalance(int tradingAccountID){
+    public BalanceResponse accountBalance(int tradingAccountID) {
 
        BalanceResponse balanceResponse = new BalanceResponse("The trading account for id: " + tradingAccountID + " doesn't exist!!");
 
@@ -69,12 +70,13 @@ public class TradingAccountService {
                balanceResponse.setResponse("Balance brought forward for trading account id:" + tradingAccountID);
                balanceResponse.setTradingAccountBalance(this.tradingAccountRepository.getOne(tradingAccountID).getInitialTradeAmount());
            }
-       }catch (EntityNotFoundException enfe){
+       } catch (EntityNotFoundException enfe){
 
           return new BalanceResponse("The trading account for id: " + tradingAccountID + " doesn't exist!!");
+
        }
 
-       return balanceResponse;
+        return balanceResponse;
     }
 
 
