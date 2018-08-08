@@ -71,7 +71,7 @@ public class BuyStockService {
 
        }catch (NullPointerException ne){
 
-           response = "Supply valid trading account!!";
+           response = "Supply valid trading account details!!";
 
        }catch (FileNotFoundException fnfe){
 
