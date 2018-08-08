@@ -54,6 +54,51 @@ public class TradingAccountService {
         return tradingAccountListResponse;
     }
 
+    public String createAccountsFromList(List<TradingAccount> tradingAccounts){
+
+        String response = "Accounts created successfully!!";
+
+        List<TradingAccount> tradingAccountsToPersist = new ArrayList<>();
+
+        if(tradingAccounts.isEmpty()){
+
+            response = "List is empty!!";
+
+        }else if(!tradingAccounts.isEmpty()){
+
+            for(int x = 0; x < tradingAccounts.size(); x++){
+
+               //Validating objects
+                if(tradingAccounts.get(x).getUserName().equals("") || tradingAccounts.get(x).getInitialTradeAmount() == 0){
+
+                    response = "Invalid list of trading account:Perhaps some trading account values are null?";
+
+                    break;
+
+                }
+
+
+                tradingAccountsToPersist.add(tradingAccounts.get(x));
+
+            }
+
+            // Check if the list is valid
+            if(tradingAccountsToPersist.size() == tradingAccounts.size()){
+
+               for(int i = 0; i < tradingAccountsToPersist.size(); i++){
+
+                   this.tradingAccountRepository.save(tradingAccountsToPersist.get(i));
+               }
+
+            }
+
+
+        }
+
+
+        return response;
+    }
+
 
     public BalanceResponse accountBalance(int tradingAccountID) {
 
