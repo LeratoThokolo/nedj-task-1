@@ -1,12 +1,10 @@
 package nedj.train.task1webservice.nedj.train.service;
 
-import nedj.train.task1webservice.nedj.train.model.BalanceResponse;
-import nedj.train.task1webservice.nedj.train.model.TradingAccount;
-import nedj.train.task1webservice.nedj.train.model.TradingAccountListResponse;
-import nedj.train.task1webservice.nedj.train.model.TradingAccountResponse;
+import nedj.train.task1webservice.nedj.train.model.*;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.persistence.EntityNotFoundException;
 import java.net.UnknownHostException;
@@ -57,10 +55,10 @@ public class TradingAccountService {
     }
 
 
-
     public BalanceResponse accountBalance(int tradingAccountID) {
 
        BalanceResponse balanceResponse = new BalanceResponse("The trading account for id: " + tradingAccountID + " doesn't exist!!");
+
 
        try{
 
@@ -72,10 +70,9 @@ public class TradingAccountService {
            }
        } catch (EntityNotFoundException enfe){
 
-          return new BalanceResponse("The trading account for id: " + tradingAccountID + " doesn't exist!!");
+          return new BalanceResponse("The trading account for id:" + tradingAccountID + " doesn't exist!!");
 
        }
-
         return balanceResponse;
     }
 

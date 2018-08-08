@@ -7,11 +7,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.constraints.AssertTrue;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class Task1webserviceApplicationTests {
 
-//	@Test
+	@Test
 	public void contextLoads() {
 
 
