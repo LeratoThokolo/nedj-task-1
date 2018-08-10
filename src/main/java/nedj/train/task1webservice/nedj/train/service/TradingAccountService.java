@@ -19,20 +19,18 @@ public class TradingAccountService {
     private TradingAccountRepository tradingAccountRepository;
 
 
-    public TradingAccountResponse createAccount(TradingAccount tradingAccount){
+    public Object createAccount(TradingAccount tradingAccount){
 
-        TradingAccountResponse tradingAccountResponse = new TradingAccountResponse("Couldn't create trading account, please validate your trading account details!!");
 
         if(tradingAccount.getInitialTradeAmount() != 0 && !tradingAccount.getUserName().equals("")){
 
-            tradingAccountResponse.setResponse("Trading account created successfully!!");
-            tradingAccountResponse.setTradingAccount(tradingAccount);
-
             this.tradingAccountRepository.save(tradingAccount);
+
+            return "Trading account created successfully!!";
 
         }
 
-        return tradingAccountResponse;
+        return "Couldn't create trading account, please validate trading account details!!";
     }
 
     public List<TradingAccount> getTradingAccounts(){
@@ -40,18 +38,16 @@ public class TradingAccountService {
         return this.tradingAccountRepository.findAll();
     }
 
-    public TradingAccountListResponse getTradingAccountsResponse(){
-
-        TradingAccountListResponse tradingAccountListResponse = new TradingAccountListResponse(
-                new ArrayList<TradingAccount>(), "List is empty!!");
+    public Object getTradingAccountsObject(){
 
         if(!this.tradingAccountRepository.findAll().isEmpty()){
 
-            tradingAccountListResponse.setResponse("Trading accounts found successfully!!");
-            tradingAccountListResponse.setTradingAccounts(this.tradingAccountRepository.findAll());
+            return this.tradingAccountRepository.findAll();
+        }else {
 
+            return "List is empty!!";
         }
-        return tradingAccountListResponse;
+
     }
 
     public String createAccountsFromList(List<TradingAccount> tradingAccounts){
@@ -100,25 +96,25 @@ public class TradingAccountService {
     }
 
 
-    public BalanceResponse accountBalance(int tradingAccountID) {
 
-       BalanceResponse balanceResponse = new BalanceResponse("The trading account for id: " + tradingAccountID + " doesn't exist!!");
+    public Object accountBalanceObject(int tradingAccountID){
 
-
-       try{
+        double balance = 0.0;
 
 
-           if(this.tradingAccountRepository.getOne(tradingAccountID) != null){
+        try{
 
-               balanceResponse.setResponse("Balance brought forward for trading account id:" + tradingAccountID);
-               balanceResponse.setTradingAccountBalance(this.tradingAccountRepository.getOne(tradingAccountID).getInitialTradeAmount());
-           }
-       } catch (EntityNotFoundException enfe){
+            if(this.tradingAccountRepository.getOne(tradingAccountID) != null){
 
-          return new BalanceResponse("The trading account for id:" + tradingAccountID + " doesn't exist!!");
+                balance = this.tradingAccountRepository.getOne(tradingAccountID).getInitialTradeAmount();
+            }
 
-       }
-        return balanceResponse;
+        }catch (EntityNotFoundException enfe){
+
+           return "Balance for trading account id:" + tradingAccountID + " doesn't exist!!";
+        }
+
+        return balance;
     }
 
 

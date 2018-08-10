@@ -23,22 +23,23 @@ public class TradingAccountController {
 
 
     @RequestMapping(value = "create-account", method = RequestMethod.POST)
-    public TradingAccountResponse createAccount(@RequestBody TradingAccount tradingAccount){
+    public Object createAccount(@RequestBody TradingAccount tradingAccount){
 
         return  this.tradingAccountService.createAccount(tradingAccount);
     }
 
 
-    @RequestMapping(value = "/get-account-balance/{tradingAccountID}", method = RequestMethod.GET)
-    public BalanceResponse accountBalance(@PathVariable int tradingAccountID){
 
-        return this.tradingAccountService.accountBalance(tradingAccountID);
+    @RequestMapping(value = "/account-balance/{tradingAccountID}", method = RequestMethod.GET)
+    public Object accountBalanceObject(@PathVariable int tradingAccountID){
+
+        return this.tradingAccountService.accountBalanceObject(tradingAccountID);
     }
 
     @RequestMapping(value = "/accounts-list", method = RequestMethod.GET)
-    public TradingAccountListResponse getTradingAccountsResponse(){
+    public Object getTradingAccountsResponse(){
 
-        return this.tradingAccountService.getTradingAccountsResponse();
+        return this.tradingAccountService.getTradingAccountsObject();
     }
 
 
