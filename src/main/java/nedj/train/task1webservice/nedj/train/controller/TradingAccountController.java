@@ -49,5 +49,11 @@ public class TradingAccountController {
         return this.tradingAccountService.createAccountsFromList(tradingAccounts);
     }
 
+    @RequestMapping(value = "/find-one/{tradingAccountID}", method = RequestMethod.GET)
+    public Object findOne(@PathVariable int tradingAccountID){
+
+        return this.tradingAccountService.findOne(tradingAccountID);
+    }
+
 
 }

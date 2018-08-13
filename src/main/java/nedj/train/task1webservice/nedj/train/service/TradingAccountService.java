@@ -95,6 +95,26 @@ public class TradingAccountService {
         return response;
     }
 
+    public Object findOne(int tradingAccountID){
+
+
+        try{
+
+
+          if(!this.tradingAccountRepository.getOne(tradingAccountID).getUserName().equals("")){
+
+              return this.tradingAccountRepository.getOne(tradingAccountID);
+
+          }
+
+        }catch (EntityNotFoundException enfe)
+        {
+            return "Trading account not found!!";
+        }
+
+       return "Account not found!!";
+    }
+
 
 
     public Object accountBalanceObject(int tradingAccountID){
