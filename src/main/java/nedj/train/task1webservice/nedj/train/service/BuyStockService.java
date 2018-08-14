@@ -63,6 +63,19 @@ public class BuyStockService {
                //Keeping track of stock bought and trading accounts used to buy stock
                this.buyStockRepository.save(buyStock);
 
+
+               //Updating trading account balance
+               double updateBalance = tradingAccount.getInitialTradeAmount() - buyStock.getRandValueAmount();
+
+
+               //Update or deduct from the trading account
+
+               tradingAccount.setTradingAccountID(buyStock.getTradingAccountID());
+               tradingAccount.setUserName(tradingAccount.getUserName());
+               tradingAccount.setInitialTradeAmount(updateBalance);
+
+               this.tradingAccountService.updateTradingAccount(tradingAccount);
+
            }
 
        }catch (MalformedURLException me){

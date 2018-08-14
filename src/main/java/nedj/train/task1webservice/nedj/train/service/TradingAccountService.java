@@ -83,7 +83,7 @@ public class TradingAccountService {
 
                for(int i = 0; i < tradingAccountsToPersist.size(); i++){
 
-                   this.tradingAccountRepository.save(tradingAccountsToPersist.get(i));
+                  this.createAccount(tradingAccountsToPersist.get(i));
                }
 
             }
@@ -135,6 +135,26 @@ public class TradingAccountService {
         }
 
         return balance;
+    }
+
+    public Object updateTradingAccount(TradingAccount tradingAccount){
+
+
+        TradingAccount updateTradingAccount = (TradingAccount) this.findOne(tradingAccount.getTradingAccountID());
+
+
+        if(tradingAccount.getTradingAccountID() !=  0){
+
+            if(tradingAccount.getInitialTradeAmount() != 0 && !tradingAccount.getUserName().equals("")){
+
+                this.createAccount(tradingAccount);
+
+                return "Account id:" + updateTradingAccount.getTradingAccountID() + " updated successfully!!";
+            }
+        }
+
+        return "Couldn't update trading account." + "\n" +
+                "Please supply valid trading account details!!";
     }
 
 

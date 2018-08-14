@@ -55,5 +55,11 @@ public class TradingAccountController {
         return this.tradingAccountService.findOne(tradingAccountID);
     }
 
+    @RequestMapping(value = "/update-account", method = RequestMethod.PUT)
+    public Object updateTradingAccount(@RequestBody TradingAccount tradingAccount){
+
+        return this.tradingAccountService.updateTradingAccount(tradingAccount);
+    }
+
 
 }
