@@ -25,7 +25,7 @@ public class SymbolService {
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-        URL url = new URL("https://api.iextrading.com/1.0/ref-data/symbolsdse");
+        URL url = new URL("https://api.iextrading.com/1.0/ref-data/symbols");
 
 
 

@@ -37,7 +37,7 @@ public class Stock implements Serializable {
     private int latestVolume;
     private double iexRealtimePrice;
     private int iexRealtimeSize;
-    private int iexLastUpdated;
+    private double iexLastUpdated;
     private double delayedPrice;
     private double delayedPriceTime;
     private double extendedPrice;

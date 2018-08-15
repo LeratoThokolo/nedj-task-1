@@ -34,7 +34,6 @@ public class BuyStockService {
         ObjectMapper objectMapper = new ObjectMapper();
 
         //Url api to fetch stock based on a symbol
-       try {
 
 
            String urlApi = "https://api.iextrading.com/1.0/stock/" + buyStock.getSymbol() + "/quote";
@@ -58,7 +57,7 @@ public class BuyStockService {
            }
 
            //Throwing exceptions
-           if(!stock.getSymbol().equals(" ") && tradingAccount.getInitialTradeAmount() > 0){
+           if(!stock.getSymbol().equals("") && tradingAccount.getInitialTradeAmount() > 0){
 
                //Keeping track of stock bought and trading accounts used to buy stock
                this.buyStockRepository.save(buyStock);
@@ -77,23 +76,6 @@ public class BuyStockService {
                this.tradingAccountService.updateTradingAccount(tradingAccount);
 
            }
-
-       }catch (MalformedURLException me){
-
-           response = "Invalid url!!";
-
-       }catch (NullPointerException ne){
-
-           response = "Supply valid trading account details!!";
-
-       }catch (FileNotFoundException fnfe){
-
-           response = "Unknown symbol, please supply a valid symbol!!";
-       }
-       catch (UnknownHostException uhe){
-
-           response = "No internet connection!!";
-       }
 
 
         return response;
