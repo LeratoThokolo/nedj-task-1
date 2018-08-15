@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.io.Serializable;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class TradingAccount implements Serializable {
 
     @Id

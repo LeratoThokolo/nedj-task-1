@@ -19,51 +19,24 @@ import java.util.List;
 public class SymbolService {
 
 
-    public Object getSymbols() throws MalformedURLException {
+    public List<Symbol> getSymbols() throws IOException {
 
 
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-        try {
-
-            URL url = new URL("https://api.iextrading.com/1.0/ref-data/symbols");
-
-            List<Symbol> symbols = new ArrayList<>();
-
-            symbols = objectMapper.readValue(url, new TypeReference<List<Symbol>>(){});
-
-            if(symbols.size() != 0){
-
-               return symbols;
-            }
+        URL url = new URL("https://api.iextrading.com/1.0/ref-data/symbolsdse");
 
 
 
-        } catch (MalformedURLException me) {
+        List<Symbol> symbols  = objectMapper.readValue(url, new TypeReference<List<Symbol>>() {
+        });
 
-            return ("Invalid url!!");
+        if (symbols.size() != 0) {
 
-        } catch (JsonParseException jpe) {
-
-            return ("Json data not formatted properly!!");
-
-        } catch (JsonMappingException jme) {
-
-            return ("Json mapping has failed!!");
-
-        } catch (UnknownHostException une){
-
-
-            return ("No internet connection!!");
-
-        } catch (IOException ioe) {
-
-            return ("Url invalid, please correct the last part of the url!!");
-
+            return symbols;
         }
 
-        return "List is empty!!";
-
+        return symbols;
     }
 }

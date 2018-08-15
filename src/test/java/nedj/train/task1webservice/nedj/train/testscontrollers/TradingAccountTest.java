@@ -50,8 +50,8 @@ public class TradingAccountTest {
     @Test
     public void getBalance() throws Exception {
 
-        Mockito.when(tradingAccountService.accountBalanceObject(Mockito.anyInt()))
-                .thenReturn(24531);
+        Mockito.when(tradingAccountService.accountBalance(Mockito.anyInt()))
+                .thenReturn((double) 24531);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/trading-account/account-balance/4").accept(MediaType.APPLICATION_JSON);
 
@@ -67,7 +67,7 @@ public class TradingAccountTest {
     @Test
     public void getAccount() throws Exception {
 
-        Mockito.when(this.tradingAccountService.findOne(5)).thenReturn(
+        Mockito.when(this.tradingAccountService.getTradingAccount(5)).thenReturn(
                 new TradingAccount(5, "Lerato Thokolo", 29450));
 
 

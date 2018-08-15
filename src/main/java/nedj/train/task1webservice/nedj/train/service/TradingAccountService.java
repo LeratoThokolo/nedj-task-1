@@ -19,7 +19,7 @@ public class TradingAccountService {
     private TradingAccountRepository tradingAccountRepository;
 
 
-    public Object createAccount(TradingAccount tradingAccount){
+    public String createAccount(TradingAccount tradingAccount){
 
 
         if(tradingAccount.getInitialTradeAmount() != 0 && !tradingAccount.getUserName().equals("")){
@@ -49,6 +49,7 @@ public class TradingAccountService {
         }
 
     }
+
 
     public String createAccountsFromList(List<TradingAccount> tradingAccounts){
 
@@ -95,52 +96,23 @@ public class TradingAccountService {
         return response;
     }
 
-    public Object findOne(int tradingAccountID){
 
 
-        try{
+    public TradingAccount getTradingAccount(int tradingAccountID){
 
+        return this.tradingAccountRepository.getOne(tradingAccountID);
 
-          if(!this.tradingAccountRepository.getOne(tradingAccountID).getUserName().equals("")){
-
-              return this.tradingAccountRepository.getOne(tradingAccountID);
-
-          }
-
-        }catch (EntityNotFoundException enfe)
-        {
-            return "Trading account not found!!";
-        }
-
-       return "Account not found!!";
     }
 
+    public double accountBalance(int tradingAccountID){
 
-
-    public Object accountBalanceObject(int tradingAccountID){
-
-        double balance = 0.0;
-
-
-        try{
-
-            if(this.tradingAccountRepository.getOne(tradingAccountID) != null){
-
-                balance = this.tradingAccountRepository.getOne(tradingAccountID).getInitialTradeAmount();
-            }
-
-        }catch (EntityNotFoundException enfe){
-
-           return "Balance for trading account id:" + tradingAccountID + " doesn't exist!!";
-        }
-
-        return balance;
+        return this.tradingAccountRepository.getOne(tradingAccountID).getInitialTradeAmount();
     }
 
-    public Object updateTradingAccount(TradingAccount tradingAccount){
+    public TradingAccount updateTradingAccount(TradingAccount tradingAccount){
 
 
-        TradingAccount updateTradingAccount = (TradingAccount) this.findOne(tradingAccount.getTradingAccountID());
+        TradingAccount updateTradingAccount = this.getTradingAccount(tradingAccount.getTradingAccountID());
 
 
         if(tradingAccount.getTradingAccountID() !=  0){
@@ -148,13 +120,10 @@ public class TradingAccountService {
             if(tradingAccount.getInitialTradeAmount() != 0 && !tradingAccount.getUserName().equals("")){
 
                 this.createAccount(tradingAccount);
-
-                return "Account id:" + updateTradingAccount.getTradingAccountID() + " updated successfully!!";
             }
         }
 
-        return "Couldn't update trading account." + "\n" +
-                "Please supply valid trading account details!!";
+       return tradingAccount;
     }
 
 

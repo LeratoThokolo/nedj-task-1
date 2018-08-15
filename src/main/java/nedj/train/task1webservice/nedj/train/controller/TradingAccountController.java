@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/trading-account")
 public class TradingAccountController {
@@ -23,7 +24,7 @@ public class TradingAccountController {
 
 
     @RequestMapping(value = "create-account", method = RequestMethod.POST)
-    public Object createAccount(@RequestBody TradingAccount tradingAccount){
+    public String createAccount(@RequestBody TradingAccount tradingAccount){
 
         return  this.tradingAccountService.createAccount(tradingAccount);
     }
@@ -31,9 +32,9 @@ public class TradingAccountController {
 
 
     @RequestMapping(value = "/account-balance/{tradingAccountID}", method = RequestMethod.GET)
-    public Object accountBalanceObject(@PathVariable int tradingAccountID){
+    public double accountBalance(@PathVariable int tradingAccountID){
 
-        return this.tradingAccountService.accountBalanceObject(tradingAccountID);
+       return this.tradingAccountService.accountBalance(tradingAccountID);
     }
 
     @RequestMapping(value = "/accounts-list", method = RequestMethod.GET)
@@ -49,17 +50,18 @@ public class TradingAccountController {
         return this.tradingAccountService.createAccountsFromList(tradingAccounts);
     }
 
-    @RequestMapping(value = "/find-one/{tradingAccountID}", method = RequestMethod.GET)
-    public Object findOne(@PathVariable int tradingAccountID){
 
-        return this.tradingAccountService.findOne(tradingAccountID);
-    }
 
     @RequestMapping(value = "/update-account", method = RequestMethod.PUT)
-    public Object updateTradingAccount(@RequestBody TradingAccount tradingAccount){
+    public TradingAccount updateTradingAccount(@RequestBody TradingAccount tradingAccount){
 
         return this.tradingAccountService.updateTradingAccount(tradingAccount);
     }
 
+    @RequestMapping(value = "/get-one/{tradingAccountID}", method = RequestMethod.GET)
+    public TradingAccount getTradingAccount(@PathVariable int tradingAccountID){
+
+       return this.tradingAccountService.getTradingAccount(tradingAccountID);
+    }
 
 }
