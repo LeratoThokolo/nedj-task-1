@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.List;
 
 @Service
 public class BuyStockService {
@@ -79,5 +80,10 @@ public class BuyStockService {
 
 
         return response;
+    }
+
+    public List<BuyStock> stocksBought(){
+
+        return this.buyStockRepository.findAll();
     }
 }
