@@ -2,17 +2,14 @@ package nedj.train.task1webservice.nedj.train.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nedj.train.task1webservice.nedj.train.model.BuyStock;
-import nedj.train.task1webservice.nedj.train.model.Stock;
-import nedj.train.task1webservice.nedj.train.model.TradingAccount;
+import nedj.train.task1webservice.nedj.train.model.*;
 import nedj.train.task1webservice.nedj.train.repository.BuyStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
+
+import java.io.IOException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.List;
 
 @Service
@@ -26,9 +23,9 @@ public class BuyStockService {
     private TradingAccountService tradingAccountService;
 
 
-    public String buyStock(BuyStock buyStock) throws Exception {
+    public String buyStock(BuyStock buyStock) throws IOException {
 
-        String response = "Stock bought successfully!!";
+        String response = "Stock not bought!!";
 
 
         //Object mapper
@@ -44,7 +41,7 @@ public class BuyStockService {
 
 
            //Trading account to trade
-           TradingAccount tradingAccount = null;
+            TradingAccount tradingAccount = new TradingAccount();
 
            //Validating the trading account to buy stock
            for (int x = 0; x < this.tradingAccountService.getTradingAccounts().size(); x++){
@@ -52,16 +49,19 @@ public class BuyStockService {
                if(this.tradingAccountService.getTradingAccounts().get(x).getTradingAccountID() == buyStock.getTradingAccountID() &&
                        this.tradingAccountService.getTradingAccounts().get(x).getInitialTradeAmount() >= buyStock.getRandValueAmount()){
 
-                   tradingAccount = this.tradingAccountService.getTradingAccounts().get(x);
+                    tradingAccount = this.tradingAccountService.getTradingAccounts().get(x);
 
                }
            }
 
            //Throwing exceptions
-           if(!stock.getSymbol().equals("") && tradingAccount.getInitialTradeAmount() > 0){
+           if(!stock.getSymbol().equals("") && tradingAccount.getInitialTradeAmount() != 0 && buyStock.getRandValueAmount() > 0){
+
 
                //Keeping track of stock bought and trading accounts used to buy stock
                this.buyStockRepository.save(buyStock);
+
+               response = "Stock bought successfully!!";
 
 
                //Updating trading account balance
@@ -77,6 +77,9 @@ public class BuyStockService {
                this.tradingAccountService.updateTradingAccount(tradingAccount);
 
            }
+
+
+
 
 
         return response;

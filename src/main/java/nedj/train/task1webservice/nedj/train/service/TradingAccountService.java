@@ -4,10 +4,7 @@ import nedj.train.task1webservice.nedj.train.model.*;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import javax.persistence.EntityNotFoundException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +16,12 @@ public class TradingAccountService {
     private TradingAccountRepository tradingAccountRepository;
 
 
-    public String createAccount(TradingAccount tradingAccount){
+    public String createAccount(TradingAccount tradingAccountPojo){
 
 
-        if(tradingAccount.getInitialTradeAmount() != 0 && !tradingAccount.getUserName().equals("")){
+        if(tradingAccountPojo.getInitialTradeAmount() != 0 && !tradingAccountPojo.getUserName().equals("")){
 
-            this.tradingAccountRepository.save(tradingAccount);
+            this.tradingAccountRepository.save(tradingAccountPojo);
 
             return "Trading account created successfully!!";
 
@@ -112,18 +109,20 @@ public class TradingAccountService {
     public TradingAccount updateTradingAccount(TradingAccount tradingAccount){
 
 
-        TradingAccount updateTradingAccount = this.getTradingAccount(tradingAccount.getTradingAccountID());
+        if(tradingAccount.getTradingAccountID() !=  0 && tradingAccount.getInitialTradeAmount() != 0 && TradingAccountService.isNull(tradingAccount)){
 
-
-        if(tradingAccount.getTradingAccountID() !=  0){
-
-            if(tradingAccount.getInitialTradeAmount() != 0 && !tradingAccount.getUserName().equals("")){
 
                 this.createAccount(tradingAccount);
-            }
+
         }
 
        return tradingAccount;
+    }
+
+    public static boolean isNull(TradingAccount tradingAccount){
+
+
+        return !tradingAccount.getUserName().equals("");
     }
 
 

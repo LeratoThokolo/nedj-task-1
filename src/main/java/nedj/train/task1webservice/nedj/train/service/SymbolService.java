@@ -1,25 +1,20 @@
 package nedj.train.task1webservice.nedj.train.service;
 
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nedj.train.task1webservice.nedj.train.model.Symbol;
+import nedj.train.task1webservice.nedj.train.model.SymbolObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SymbolService {
 
 
-    public List<Symbol> getSymbols() throws IOException {
+    public List<SymbolObject> getSymbols() throws IOException {
 
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -29,10 +24,10 @@ public class SymbolService {
 
 
 
-        List<Symbol> symbols  = objectMapper.readValue(url, new TypeReference<List<Symbol>>() {
+        List<SymbolObject> symbols  = objectMapper.readValue(url, new TypeReference<List<SymbolObject>>() {
         });
 
-        if (symbols.size() != 0) {
+        if (symbols.isEmpty()) {
 
             return symbols;
         }

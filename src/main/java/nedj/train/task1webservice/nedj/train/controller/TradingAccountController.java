@@ -25,7 +25,8 @@ public class TradingAccountController {
 
 
 
-    @RequestMapping(value = "create-account", method = RequestMethod.POST)
+
+    @PostMapping(value = "/create-account")
     public String createAccount(@RequestBody TradingAccount tradingAccount){
 
         return  this.tradingAccountService.createAccount(tradingAccount);
@@ -33,43 +34,45 @@ public class TradingAccountController {
 
 
 
-    @RequestMapping(value = "/account-balance/{tradingAccountID}", method = RequestMethod.GET)
+
+    @GetMapping(value = "/account-balance/{tradingAccountID}")
     public double accountBalance(@PathVariable int tradingAccountID){
 
        return this.tradingAccountService.accountBalance(tradingAccountID);
     }
 
-    @RequestMapping(value = "/accounts-list", method = RequestMethod.GET)
+    @GetMapping(value = "/accounts-list")
     public Object getTradingAccountsResponse(){
 
         return this.tradingAccountService.getTradingAccountsObject();
     }
 
 
-    @RequestMapping(value = "/create-list-account", method = RequestMethod.POST)
+    @PostMapping(value = "/create-list-account")
     public String createAccountsFromList(@RequestBody List<TradingAccount> tradingAccounts){
 
         return this.tradingAccountService.createAccountsFromList(tradingAccounts);
     }
 
-    @RequestMapping(value = "/create-list-trading-account", method = RequestMethod.POST)
+    @PostMapping(value = "/create-list-trading-account")
     public ResponseEntity<String> createListOfAccounts(@RequestBody List<TradingAccount> tradingAccounts){
 
-        return new ResponseEntity<String>(this.tradingAccountService.createAccountsFromList(tradingAccounts), HttpStatus.OK);
+        return new ResponseEntity<>(this.tradingAccountService.createAccountsFromList(tradingAccounts), HttpStatus.OK);
     }
 
 
 
-    @RequestMapping(value = "/update-account", method = RequestMethod.PUT)
+    @PutMapping(value = "/update-account")
     public TradingAccount updateTradingAccount(@RequestBody TradingAccount tradingAccount){
 
         return this.tradingAccountService.updateTradingAccount(tradingAccount);
     }
 
-    @RequestMapping(value = "/get-one/{tradingAccountID}", method = RequestMethod.GET)
+    @GetMapping(value = "/get-one/{tradingAccountID}")
     public TradingAccount getTradingAccount(@PathVariable int tradingAccountID){
 
        return this.tradingAccountService.getTradingAccount(tradingAccountID);
     }
+
 
 }

@@ -29,7 +29,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage(e.getMessage());
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -41,7 +41,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Trading account doesn't exist");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -52,7 +52,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Please supply the request data");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -63,7 +63,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Wrong input type, input must be a number");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 
@@ -76,7 +76,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Trading account id doesn't exist");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(JpaObjectRetrievalFailureException.class)
@@ -87,7 +87,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Trading account id doesn't exist");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(FileNotFoundException.class)
@@ -98,7 +98,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Data not found, please supply a known symbol");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MalformedURLException.class)
@@ -109,7 +109,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Invalid url");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.URI_TOO_LONG);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.URI_TOO_LONG);
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -120,7 +120,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("Supply valid trading account details!!");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UnknownHostException.class)
@@ -131,7 +131,7 @@ public class CentralExceptionsHandler {
         exceptionResponse.setMessage("No internet connection");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
-        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
 

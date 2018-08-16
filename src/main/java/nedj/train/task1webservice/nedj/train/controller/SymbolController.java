@@ -1,14 +1,13 @@
 package nedj.train.task1webservice.nedj.train.controller;
 
-import nedj.train.task1webservice.nedj.train.model.Symbol;
+import nedj.train.task1webservice.nedj.train.model.SymbolObject;
 import nedj.train.task1webservice.nedj.train.service.SymbolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
@@ -19,8 +18,8 @@ public class SymbolController {
     private SymbolService symbolService;
 
 
-    @RequestMapping(value = "/get-symbols", method = RequestMethod.GET)
-    public List<Symbol> getSymbols() throws IOException {
+    @GetMapping(value = "/get-symbols")
+    public List<SymbolObject> getSymbols() throws IOException {
 
 
         return this.symbolService.getSymbols();

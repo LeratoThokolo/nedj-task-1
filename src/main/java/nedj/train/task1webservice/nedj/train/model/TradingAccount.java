@@ -2,10 +2,7 @@ package nedj.train.task1webservice.nedj.train.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +23,7 @@ public class TradingAccount implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int tradingAccountID;
     private String userName;
+    @NonNull
     private double initialTradeAmount;
 
     public TradingAccount(String json) throws IOException {

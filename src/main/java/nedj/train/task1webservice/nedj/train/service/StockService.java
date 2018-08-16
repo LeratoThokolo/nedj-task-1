@@ -24,11 +24,8 @@ public class StockService {
 
         URL url = new URL(urlApi);
 
-        Stock stock = objectMapper.readValue(url, Stock.class);
 
-
-
-        return stock;
+        return objectMapper.readValue(url, Stock.class);
 
     }
 

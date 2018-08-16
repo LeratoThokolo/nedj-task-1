@@ -5,11 +5,6 @@ import nedj.train.task1webservice.nedj.train.controller.TradingAccountController
 import nedj.train.task1webservice.nedj.train.model.TradingAccount;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import nedj.train.task1webservice.nedj.train.service.TradingAccountService;
-import net.bytebuddy.jar.asm.commons.JSRInlinerAdapter;
-import org.assertj.core.util.Arrays;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -23,12 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import javax.swing.*;
-import java.io.DataInput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -51,15 +40,15 @@ public class TradingAccountTest {
     public void getBalance() throws Exception {
 
         Mockito.when(tradingAccountService.accountBalance(Mockito.anyInt()))
-                .thenReturn((double) 24531);
+                .thenReturn(Double.valueOf((14685246)));
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/trading-account/account-balance/4").accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/trading-account/account-balance/5").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-        String expected = "24531";
+        double expected = 14685246;
 
-        JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+        JSONAssert.assertEquals(String.valueOf(expected), result.getResponse().getContentAsString(), false);
 
 
     }
@@ -68,17 +57,17 @@ public class TradingAccountTest {
     public void getAccount() throws Exception {
 
         Mockito.when(this.tradingAccountService.getTradingAccount(5)).thenReturn(
-                new TradingAccount(5, "Lerato Thokolo", 29450));
+                new TradingAccount(5, "Lerato Thokolo", 14685246));
 
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/trading-account/find-one/5").accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/trading-account/get-one/5").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-        TradingAccount ta = new TradingAccount(5, "Lerato Thokolo", 29450);
+        TradingAccount ta = new TradingAccount(5, "Lerato Thokolo", 14685246);
 
         String expected = objectMapper.writeValueAsString(ta);
 
