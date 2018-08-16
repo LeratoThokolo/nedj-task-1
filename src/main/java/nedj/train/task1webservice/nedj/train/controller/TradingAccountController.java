@@ -5,6 +5,8 @@ import nedj.train.task1webservice.nedj.train.model.*;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import nedj.train.task1webservice.nedj.train.service.TradingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +50,12 @@ public class TradingAccountController {
     public String createAccountsFromList(@RequestBody List<TradingAccount> tradingAccounts){
 
         return this.tradingAccountService.createAccountsFromList(tradingAccounts);
+    }
+
+    @RequestMapping(value = "/create-list-trading-account", method = RequestMethod.POST)
+    public ResponseEntity<String> createListOfAccounts(@RequestBody List<TradingAccount> tradingAccounts){
+
+        return new ResponseEntity<String>(this.tradingAccountService.createAccountsFromList(tradingAccounts), HttpStatus.OK);
     }
 
 
