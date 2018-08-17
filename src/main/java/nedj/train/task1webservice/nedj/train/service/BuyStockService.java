@@ -29,7 +29,7 @@ public class BuyStockService {
 
     public String buyStock(BuyStockPojo buyStockPojo) throws IOException {
 
-        String response = "Stock not bought!!";
+        String response = "Stock not bought, please validate your details!!";
 
 
         //Object mapper
