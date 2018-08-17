@@ -2,7 +2,11 @@ package nedj.train.task1webservice.nedj.train.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nedj.train.task1webservice.nedj.train.model.*;
+import nedj.train.task1webservice.nedj.train.model.entity.BuyStock;
+import nedj.train.task1webservice.nedj.train.model.entity.Stock;
+import nedj.train.task1webservice.nedj.train.model.entity.TradingAccount;
+import nedj.train.task1webservice.nedj.train.model.pojo.BuyStockPojo;
+import nedj.train.task1webservice.nedj.train.model.pojo.TradingAccountPojo;
 import nedj.train.task1webservice.nedj.train.repository.BuyStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +27,7 @@ public class BuyStockService {
     private TradingAccountService tradingAccountService;
 
 
-    public String buyStock(BuyStock buyStock) throws IOException {
+    public String buyStock(BuyStockPojo buyStockPojo) throws IOException {
 
         String response = "Stock not bought!!";
 
@@ -34,7 +38,7 @@ public class BuyStockService {
         //Url api to fetch stock based on a symbol
 
 
-           String urlApi = "https://api.iextrading.com/1.0/stock/" + buyStock.getSymbol() + "/quote";
+           String urlApi = "https://api.iextrading.com/1.0/stock/" + buyStockPojo.getSymbol() + "/quote";
            URL url = new URL(urlApi);
            //Converting json into pojo
            Stock stock = objectMapper.readValue(url, Stock.class);
@@ -46,8 +50,8 @@ public class BuyStockService {
            //Validating the trading account to buy stock
            for (int x = 0; x < this.tradingAccountService.getTradingAccounts().size(); x++){
 
-               if(this.tradingAccountService.getTradingAccounts().get(x).getTradingAccountID() == buyStock.getTradingAccountID() &&
-                       this.tradingAccountService.getTradingAccounts().get(x).getInitialTradeAmount() >= buyStock.getRandValueAmount()){
+               if(this.tradingAccountService.getTradingAccounts().get(x).getTradingAccountID() == buyStockPojo.getTradingAccountID() &&
+                       this.tradingAccountService.getTradingAccounts().get(x).getInitialTradeAmount() >= buyStockPojo.getRandValueAmount()){
 
                     tradingAccount = this.tradingAccountService.getTradingAccounts().get(x);
 
@@ -55,9 +59,14 @@ public class BuyStockService {
            }
 
            //Throwing exceptions
-           if(!stock.getSymbol().equals("") && tradingAccount.getInitialTradeAmount() != 0 && buyStock.getRandValueAmount() > 0){
+           if(!stock.getSymbol().equals("") && tradingAccount.getInitialTradeAmount() != 0 && buyStockPojo.getRandValueAmount() > 0){
 
 
+               BuyStock buyStock = new BuyStock();
+               buyStock.setBuyStockID(buyStockPojo.getBuyStockID());
+               buyStock.setRandValueAmount(buyStockPojo.getRandValueAmount());
+               buyStock.setSymbol(buyStockPojo.getSymbol());
+               buyStock.setTradingAccountID(buyStockPojo.getTradingAccountID());
                //Keeping track of stock bought and trading accounts used to buy stock
                this.buyStockRepository.save(buyStock);
 
@@ -74,11 +83,14 @@ public class BuyStockService {
                tradingAccount.setUserName(tradingAccount.getUserName());
                tradingAccount.setInitialTradeAmount(updateBalance);
 
-               this.tradingAccountService.updateTradingAccount(tradingAccount);
+               TradingAccountPojo tradingAccountPojo = new TradingAccountPojo();
+               tradingAccountPojo.setInitialTradeAmount(tradingAccount.getInitialTradeAmount());
+               tradingAccountPojo.setUserName(tradingAccount.getUserName());
+               tradingAccountPojo.setTradingAccountID(tradingAccount.getTradingAccountID());
+
+               this.tradingAccountService.updateTradingAccount(tradingAccountPojo);
 
            }
-
-
 
 
 

@@ -3,7 +3,7 @@ package nedj.train.task1webservice.nedj.train.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nedj.train.task1webservice.nedj.train.model.SymbolObject;
+import nedj.train.task1webservice.nedj.train.model.entity.SymbolObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

@@ -1,7 +1,8 @@
 package nedj.train.task1webservice.nedj.train.controller;
 
 
-import nedj.train.task1webservice.nedj.train.model.*;
+import nedj.train.task1webservice.nedj.train.model.entity.TradingAccount;
+import nedj.train.task1webservice.nedj.train.model.pojo.TradingAccountPojo;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import nedj.train.task1webservice.nedj.train.service.TradingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,11 @@ public class TradingAccountController {
     private TradingAccountRepository tradingAccountRepository;
 
 
-
-
     @PostMapping(value = "/create-account")
-    public String createAccount(@RequestBody TradingAccount tradingAccount){
+    public String createAccount(@RequestBody TradingAccountPojo tradingAccountPojo){
 
-        return  this.tradingAccountService.createAccount(tradingAccount);
+        return this.tradingAccountService.createAccount(tradingAccountPojo);
     }
-
-
 
 
     @GetMapping(value = "/account-balance/{tradingAccountID}")
@@ -63,9 +60,9 @@ public class TradingAccountController {
 
 
     @PutMapping(value = "/update-account")
-    public TradingAccount updateTradingAccount(@RequestBody TradingAccount tradingAccount){
+    public TradingAccount updateTradingAccount(@RequestBody TradingAccountPojo tradingAccountPojo){
 
-        return this.tradingAccountService.updateTradingAccount(tradingAccount);
+        return this.tradingAccountService.updateTradingAccount(tradingAccountPojo);
     }
 
     @GetMapping(value = "/get-one/{tradingAccountID}")

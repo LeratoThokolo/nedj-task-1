@@ -2,7 +2,8 @@ package nedj.train.task1webservice.nedj.train.testscontrollers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nedj.train.task1webservice.nedj.train.controller.TradingAccountController;
-import nedj.train.task1webservice.nedj.train.model.TradingAccount;
+import nedj.train.task1webservice.nedj.train.model.entity.TradingAccount;
+import nedj.train.task1webservice.nedj.train.model.pojo.TradingAccountPojo;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import nedj.train.task1webservice.nedj.train.service.TradingAccountService;
 import org.junit.Test;
@@ -78,13 +79,13 @@ public class TradingAccountTest {
     @Test
     public void createAccount() throws Exception {
 
-        TradingAccount tradingAccount = new TradingAccount(75, "Lebelo Malome", 758291);
+        TradingAccountPojo tradingAccountPojo = new TradingAccountPojo(75, "Lebelo Malome", 758291);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String dataToPost = objectMapper.writeValueAsString(tradingAccount);
+        String dataToPost = objectMapper.writeValueAsString(tradingAccountPojo);
 
-        Mockito.when(this.tradingAccountService.createAccount(Mockito.any(TradingAccount.class))).thenReturn("Trading account created successfully!!");
+        Mockito.when(this.tradingAccountService.createAccount(Mockito.any(TradingAccountPojo.class))).thenReturn("Trading account created successfully!!");
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/trading-account/create-account").accept(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

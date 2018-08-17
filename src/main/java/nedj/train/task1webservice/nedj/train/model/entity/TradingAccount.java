@@ -1,4 +1,4 @@
-package nedj.train.task1webservice.nedj.train.model;
+package nedj.train.task1webservice.nedj.train.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +23,6 @@ public class TradingAccount implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int tradingAccountID;
     private String userName;
-    @NonNull
     private double initialTradeAmount;
 
     public TradingAccount(String json) throws IOException {

@@ -2,7 +2,7 @@ package nedj.train.task1webservice.nedj.train.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nedj.train.task1webservice.nedj.train.model.Stock;
+import nedj.train.task1webservice.nedj.train.model.entity.Stock;
 import org.springframework.stereotype.Service;
 
 

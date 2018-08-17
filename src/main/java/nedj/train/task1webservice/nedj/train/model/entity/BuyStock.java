@@ -1,4 +1,4 @@
-package nedj.train.task1webservice.nedj.train.model;
+package nedj.train.task1webservice.nedj.train.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,6 +1,7 @@
 package nedj.train.task1webservice.nedj.train.service;
 
-import nedj.train.task1webservice.nedj.train.model.*;
+import nedj.train.task1webservice.nedj.train.model.entity.TradingAccount;
+import nedj.train.task1webservice.nedj.train.model.pojo.TradingAccountPojo;
 import nedj.train.task1webservice.nedj.train.repository.TradingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,17 @@ public class TradingAccountService {
     private TradingAccountRepository tradingAccountRepository;
 
 
-    public String createAccount(TradingAccount tradingAccountPojo){
+    public String createAccount(TradingAccountPojo tradingAccountPojo){
 
 
-        if(tradingAccountPojo.getInitialTradeAmount() != 0 && !tradingAccountPojo.getUserName().equals("")){
+        if(tradingAccountPojo.getInitialTradeAmount() != 0 && TradingAccountService.isNull(tradingAccountPojo)){
 
-            this.tradingAccountRepository.save(tradingAccountPojo);
+            TradingAccount tradingAccount = new TradingAccount();
+            tradingAccount.setInitialTradeAmount(tradingAccountPojo.getInitialTradeAmount());
+            tradingAccount.setTradingAccountID(tradingAccountPojo.getTradingAccountID());
+            tradingAccount.setUserName(tradingAccountPojo.getUserName());
+
+            this.tradingAccountRepository.save(tradingAccount);
 
             return "Trading account created successfully!!";
 
@@ -81,7 +87,7 @@ public class TradingAccountService {
 
                for(int i = 0; i < tradingAccountsToPersist.size(); i++){
 
-                  this.createAccount(tradingAccountsToPersist.get(i));
+                  this.tradingAccountRepository.save(tradingAccountsToPersist.get(i));
                }
 
             }
@@ -106,23 +112,24 @@ public class TradingAccountService {
         return this.tradingAccountRepository.getOne(tradingAccountID).getInitialTradeAmount();
     }
 
-    public TradingAccount updateTradingAccount(TradingAccount tradingAccount){
+    public TradingAccountPojo updateTradingAccount(TradingAccountPojo tradingAccountPojo){
 
 
-        if(tradingAccount.getTradingAccountID() !=  0 && tradingAccount.getInitialTradeAmount() != 0 && TradingAccountService.isNull(tradingAccount)){
+
+        if(tradingAccountPojo.getTradingAccountID() !=  0 && tradingAccountPojo.getInitialTradeAmount() != 0 && TradingAccountService.isNull(tradingAccountPojo)){
 
 
-                this.createAccount(tradingAccount);
+                this.createAccount(tradingAccountPojo);
 
         }
 
-       return tradingAccount;
+       return tradingAccountPojo;
     }
 
-    public static boolean isNull(TradingAccount tradingAccount){
+    public static boolean isNull(TradingAccountPojo tradingAccountPojo){
 
 
-        return !tradingAccount.getUserName().equals("");
+        return !tradingAccountPojo.getUserName().equals("");
     }
 
 
