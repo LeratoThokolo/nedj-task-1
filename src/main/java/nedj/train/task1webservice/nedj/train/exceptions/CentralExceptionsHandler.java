@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import javax.persistence.EntityNotFoundException;
+
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
@@ -61,19 +61,6 @@ public class CentralExceptionsHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setCode(HttpStatus.BAD_REQUEST.value());
         exceptionResponse.setMessage("Wrong input type, input must be a number");
-        exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
-
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-    }
-
-
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> entityNotFound(Exception e){
-
-        ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setCode(HttpStatus.BAD_REQUEST.value());
-        exceptionResponse.setMessage("Trading account id doesn't exist");
         exceptionResponse.setDate(FormatDateForExceptions.formatDate(new Date()));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);

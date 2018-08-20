@@ -99,6 +99,22 @@ public class TradingAccountService {
         return response;
     }
 
+    public TradingAccount getTradingAccountByUsername(String userName){
+
+        TradingAccount tradingAccount = new TradingAccount();
+
+        for (int x = 0; x < this.getTradingAccounts().size(); x++){
+
+            if(userName.equals(this.getTradingAccounts().get(x).getUserName())){
+
+                tradingAccount = this.getTradingAccounts().get(x);
+                break;
+            }
+        }
+
+        return tradingAccount;
+    }
+
 
 
     public TradingAccount getTradingAccount(int tradingAccountID){

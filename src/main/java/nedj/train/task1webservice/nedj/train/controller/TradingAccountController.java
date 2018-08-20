@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 
@@ -69,6 +70,21 @@ public class TradingAccountController {
     public TradingAccount getTradingAccount(@PathVariable int tradingAccountID){
 
        return this.tradingAccountService.getTradingAccount(tradingAccountID);
+    }
+
+
+    @GetMapping(value = "/get-by-username/{userName}")
+    public TradingAccount getTradingAccountByUsername(@PathVariable String userName){
+
+        TradingAccount tradingAccount = this.tradingAccountService.getTradingAccountByUsername(userName);
+
+        if(tradingAccount.getUserName() == null){
+
+            throw new EntityNotFoundException("Trading account with name " + userName + " doesn't exist");
+        }
+
+        return tradingAccount;
+
     }
 
 
