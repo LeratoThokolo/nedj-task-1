@@ -40,7 +40,7 @@ public class TradingAccountController {
     }
 
     @GetMapping(value = "/accounts-list")
-    public Object getTradingAccountsResponse(){
+    public List<TradingAccount> getTradingAccountsResponse(){
 
         return this.tradingAccountService.getTradingAccountsObject();
     }

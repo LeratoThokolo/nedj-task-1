@@ -41,15 +41,9 @@ public class TradingAccountService {
         return this.tradingAccountRepository.findAll();
     }
 
-    public Object getTradingAccountsObject(){
+    public List<TradingAccount> getTradingAccountsObject(){
 
-        if(!this.tradingAccountRepository.findAll().isEmpty()){
-
-            return this.tradingAccountRepository.findAll();
-        }else {
-
-            return "List is empty!!";
-        }
+        return this.tradingAccountRepository.findAll();
 
     }
 
